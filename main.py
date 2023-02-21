@@ -1,4 +1,4 @@
-from pytube import YouTube
+from pytube import YouTube, exceptions
 import os
 
 try:
@@ -28,7 +28,13 @@ try:
         print("Mission accomplished!")
     else:
         print("Wrong value, try again.")
-except:
-    print("Wrong URL")
 
+except exceptions.RegexMatchError:
+    print("This is not a valid youtube video link: {}".format(video_link))
+
+except exceptions.ExtractError:
+    print('An extraction error occurred for the video: {}'.format(video_link))
+
+except exceptions.VideoUnavailable:
+    print('The following video is unavailable: {}'.format(video_link))
 
