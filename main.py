@@ -9,7 +9,7 @@ try:
     print("Lenght", yt.length, "seconds")
     print("Views: ", yt.views)
 
-    mp3_mp4 = input("Choose extention: MP3 / MP4 \n")
+    mp3_mp4 = input("Choose extention: MP3 / MP4 / 1080p \n")
 
     if mp3_mp4.lower() == "mp3":
         print("Downloading...")
@@ -26,6 +26,12 @@ try:
         mp4 = yt.streams.get_highest_resolution()
         downloaded_mp4 = mp4.download(output_path="D:\Pythonprojekty\YTdownloaderDOWNLOADS\movies")
         print("Mission accomplished!")
+    elif mp3_mp4.lower() == "1080p":
+        print("Downloading...")
+        mp4_without_audio = yt.streams.filter(res="1080p", progressive=False).first()
+        downloaded_mp4_without_audio = mp4_without_audio.download(
+            output_path="D:\Pythonprojekty\YTdownloaderDOWNLOADS\movies")
+        print("Mission accomplished!")
     else:
         print("Wrong value, try again.")
 
@@ -37,4 +43,3 @@ except exceptions.ExtractError:
 
 except exceptions.VideoUnavailable:
     print('The following video is unavailable: {}'.format(video_link))
-
